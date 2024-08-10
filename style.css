@@ -1,3 +1,29 @@
 body {
-    background-color: tomato;
+    background-color: ghostwhite;
+    height: 100vh;
+}
+
+#dropArea {
+    border: 5px dashed hsl(0, 0%, 40%);
+    padding: 20px;
+    text-align: center;
+    font-size: 16px;
+    color: hsl(0, 0%, 40%);
+    cursor: pointer;
+    transition: .5s;
+}
+
+#dropArea.dragover {
+    border-color: var(--bs-primary);
+    color: var(--bs-primary);
+}
+
+#fileInput {
+    display: none;
+}
+
+#uploadButton:not(.active),
+#downloadButton:not(.active) {
+    opacity: 0.5;
+    pointer-events: none;
 }

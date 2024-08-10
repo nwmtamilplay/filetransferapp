@@ -4,19 +4,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Transfer</title>
+    <title>File Sar</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+    <link rel="manifest" href="icons/site.webmanifest">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
     <div class="container">
+        <div class="row mt-5">
+            <div class="col-12 d-flex justify-content-center align-items-center">
+                <img style="width: 200px;" src="logo.png" alt="">
+            </div>
+        </div>
         <div class="row">
-            <div class="col-12 col-md-6">
-                <h1>Upload Folder</h1>
-                <input type="file" id="fileInput" multiple webkitdirectory mozdirectory msdirectory odirectory
-                    directory>
-                <button id="uploadButton">Upload</button>
+            <div class="col-12 p-5 gap-3 col-md-6 d-flex flex-column align-items-center justify-content-center">
+                <h3 id="sender">Sender</h3>
+                <div id="download-key-generate" class="input-group mb-3 shadow d-none">
+                    <span class="input-group-text px-3 btn btn-primary d-flex justify-content-center align-items-center"
+                        id="copy-btn"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                            viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                d="M19 19H8q-.825 0-1.412-.587T6 17V3q0-.825.588-1.412T8 1h7l6 6v10q0 .825-.587 1.413T19 19M14 8V3H8v14h11V8zM4 23q-.825 0-1.412-.587T2 21V7h2v14h11v2zM8 3v5zv14z" />
+                        </svg></span>
+                    <input type="text" class="form-control fs-3" placeholder="Download Key" aria-label="Username"
+                        aria-describedby="copy-btn">
+                </div>
+                <picture id="imageDisplay" class="d-none">
+                    <img class="w-100 shadow mb-2 d-none" src="" alt="...">
+                    <video class="d-none w-100" controls autoplay muted src=""></video>
+                    <h5></h5>
+                </picture>
+                <div id="dropArea"
+                    class="d-flex shadow w-100 rounded-3 flex-column justify-content-center align-items-center p-5">
+                    <h3>Drag and drop files here <br> or <br> click to select files</h3>
+                </div>
+                <input type="file" id="fileInput" multiple>
+                <button class="btn btn-primary w-100 fs-4 rounded-3" id="uploadButton">Upload File</button>
+
+            </div>
+            <div class="col-12 p-5 gap-3 col-md-6 d-flex flex-column align-items-center justify-content-center">
+                <h3 id="receiver">Receiver</h3>
+                <picture id="readImageDisplay" class="d-none">
+                    <img class="w-100 shadow mb-2 d-none" src="" alt="...">
+                    <video class="d-none w-100" controls autoplay muted src=""></video>
+                    <h5></h5>
+                </picture>
+                <div id="download-key" class="input-group mb-3 shadow">
+
+                    <input type="text" class="form-control fs-3" placeholder="Download Key" aria-label="Username"
+                        aria-describedby="paste-btn">
+                    <span class="input-group-text px-3 btn btn-primary d-flex justify-content-center align-items-center"
+                        id="paste-btn"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                            viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h4.175q.275-.875 1.075-1.437T12 1q1 0 1.788.563T14.85 3H19q.825 0 1.413.588T21 5v14q0 .825-.587 1.413T19 21zm0-2h14V5h-2v2q0 .425-.288.713T16 8H8q-.425 0-.712-.288T7 7V5H5zm7-14q.425 0 .713-.288T13 4t-.288-.712T12 3t-.712.288T11 4t.288.713T12 5" />
+                        </svg></span>
+                </div>
+                <button class="btn btn-primary w-100 fs-4 rounded-3" id="downloadButton">Download Files</button>
             </div>
         </div>
     </div>
