@@ -4,12 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Download Files Individually</title>
+    <title>Download Folder as ZIP</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
 </head>
 
 <body>
-    <h1>Download Files Individually</h1>
-    <button id="downloadButton">Download Files</button>
+    <h1>Download Files as ZIP</h1>
+    <button id="downloadButton">Download ZIP</button>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
@@ -28,25 +29,34 @@
         const app = initializeApp(firebaseConfig);
         const storage = getStorage(app);
 
-        async function downloadFilesIndividually() {
+        async function downloadFolderAsZip() {
             const storageRef = ref(storage, 'uploads/images/'); // Directory path
+            const zip = new JSZip();
+            const imageListDiv = document.getElementById('imageList');
 
             try {
                 const res = await listAll(storageRef);
-                res.items.forEach(async (itemRef) => {
+                const filePromises = res.items.map(async (itemRef) => {
                     const url = await getDownloadURL(itemRef);
+                    const response = await fetch(url);
+                    const blob = await response.blob();
+                    zip.file(itemRef.name, blob);
+                });
+
+                await Promise.all(filePromises);
+
+                zip.generateAsync({ type: 'blob' }).then(function (content) {
                     const a = document.createElement('a');
-                    a.href = url;
-                    a.download = itemRef.name; // Use the file name from Firebase Storage
+                    a.href = URL.createObjectURL(content);
+                    a.download = 'images.zip';
                     a.click();
                 });
             } catch (e) {
-                console.error('Error downloading files individually: ', e);
+                console.error('Error downloading files as ZIP: ', e);
             }
         }
 
-
-        document.getElementById('downloadButton').addEventListener('click', downloadFilesIndividually);
+        document.getElementById('downloadButton').addEventListener('click', downloadFolderAsZip);
     </script>
 </body>
 
