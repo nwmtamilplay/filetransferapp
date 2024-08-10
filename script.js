@@ -150,6 +150,7 @@ document.querySelector('#paste-btn').addEventListener('click', () => {
     });
 });
 uploadButton.addEventListener('click', async () => {
+    uploadButton.remove();
     const file = sentFile;
     if (file) {
         await handleFile(file);
